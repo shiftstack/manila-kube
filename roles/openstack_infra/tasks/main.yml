@@ -138,6 +138,10 @@
             ansible_ssh_private_key_file="{{private_key_file}}"
             ansible_ssh_user=centos
 
+- name: add worker IP address to our ansible inventory
+  add_host: hostname="localhost"
+            worker_0_public_ip="{{ worker0.server.public_v4 }}"
+
 - name: Create local login script
   template: src=login-worker0.sh.j2
             dest=./login-worker0.sh
