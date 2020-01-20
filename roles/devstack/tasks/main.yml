@@ -20,10 +20,10 @@
        version=stable/train
 
 - name: Install ~/devstack/local.conf
-  copy: dest={{ansible_env.HOME}}/devstack/local.conf
-        src=local.conf
-        mode=0644
-        owner={{ansible_env.USER}}
+  template: dest={{ansible_env.HOME}}/devstack/local.conf
+            src=local.conf
+            mode=0644
+            owner={{ansible_env.USER}}
 
 # The CentOS python-setuptools is too old
 # for devstack and it will use its own version

@@ -52,6 +52,31 @@
     port_range_max: 65535
     remote_ip_prefix: 192.168.0.0/24
 
+- name: allow ping
+  os_security_group_rule:
+    state: present
+    security_group: manila-kube-security-group
+    protocol: icmp
+    remote_ip_prefix: 0.0.0.0/0
+
+- name: allow unrestricted TCP from the outside
+  os_security_group_rule:
+    state: present
+    security_group: manila-kube-security-group
+    protocol: tcp
+    port_range_min: 1
+    port_range_max: 65535
+    remote_ip_prefix: 0.0.0.0/0
+
+- name: allow unrestricted UDP from the outside
+  os_security_group_rule:
+    state: present
+    security_group: manila-kube-security-group
+    protocol: udp
+    port_range_min: 1
+    port_range_max: 65535
+    remote_ip_prefix: 0.0.0.0/0
+
 - name: create keypair
   os_keypair:
     state: present
@@ -137,6 +162,10 @@
             groups=cluster,workers,devstack
             ansible_ssh_private_key_file="{{private_key_file}}"
             ansible_ssh_user=centos
+
+- name: add worker IP address to our ansible inventory
+  add_host: hostname="localhost"
+            worker_0_public_ip="{{ worker0.server.public_v4 }}"
 
 - name: Create local login script
   template: src=login-worker0.sh.j2
