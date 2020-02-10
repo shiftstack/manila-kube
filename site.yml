@@ -54,6 +54,6 @@
     - "global_vars.yml"
   roles:
     - gantsign.golang
-    - csi
+    # - csi
   tags:
   - setup_csi
