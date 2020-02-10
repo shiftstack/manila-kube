@@ -3,3 +3,8 @@ keys.yml
 *.retry
 kubeconfig.conf
 .venv
+adminrc
+clouds.yaml
+demorc
+inventory.yml
+roles/gantsign.golang/
